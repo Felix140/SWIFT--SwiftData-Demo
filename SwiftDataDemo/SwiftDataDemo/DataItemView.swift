@@ -8,9 +8,27 @@
 import SwiftUI
 
 struct DataItemView: View {
+    
+    @Environment(\.modelContext) private var context
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Tap this button to print a row")
+            Button("Tap here") {
+                pushData()
+            }
+            
+            List {
+       
+            }
+        }
     }
+    
+    func pushData() {
+        let itemText = DataItemModel(name: "Testo row")
+        context.insert(itemText)
+    }
+
 }
 
 #Preview {
