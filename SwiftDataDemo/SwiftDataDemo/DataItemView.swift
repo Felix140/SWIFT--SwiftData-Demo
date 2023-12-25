@@ -4,13 +4,15 @@ import SwiftData
 struct DataItemView: View {
     
     @Environment(\.modelContext) private var context
+    @StateObject private var viewModel = DataItemViewViewModel()
     @Query private var listItem: [DataItemModel]
+    
     
     var body: some View {
         VStack {
             Text("Tap this button to print a row")
             Button("Tap here") {
-                pushData()
+                viewModel.pushData()
             }
             
             List {
@@ -19,22 +21,18 @@ struct DataItemView: View {
                 }
                 .onDelete(perform: { indexSet in
                     for indexData in indexSet {
-                        deleteData(listItem[indexData])
+                        viewModel.deleteData(listItem[indexData])
                     }
                 })
             }
         }
+        .onAppear {
+            viewModel.contextModel = context /// inizializzo quando appare la VIEW
+        }
     }
     
-    func pushData() {
-        let itemText = DataItemModel(name: "Testo row")
-        context.insert(itemText)
-    }
     
-    func deleteData(_ item: DataItemModel) {
-        context.delete(item)
-    }
-
+    
 }
 
 struct DataItemView_Previews: PreviewProvider {
