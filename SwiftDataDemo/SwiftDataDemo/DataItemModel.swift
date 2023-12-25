@@ -3,7 +3,7 @@ import SwiftData
 
 @Model
 class DataItemModel: Identifiable {
-    let id: String
+    var id: String
     var name: String
     
     init(name: String) {

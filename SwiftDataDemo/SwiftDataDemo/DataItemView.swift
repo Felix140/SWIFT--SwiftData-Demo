@@ -1,15 +1,10 @@
-//
-//  DataItemView.swift
-//  SwiftDataDemo
-//
-//  Created by Felix Valdez on 24/12/23.
-//
-
 import SwiftUI
+import SwiftData
 
 struct DataItemView: View {
     
     @Environment(\.modelContext) private var context
+    @Query private var listItem: [DataItemModel]
     
     var body: some View {
         VStack {
@@ -19,7 +14,9 @@ struct DataItemView: View {
             }
             
             List {
-       
+                ForEach(listItem) { rowList in
+                    Text(rowList.name)
+                }
             }
         }
     }
@@ -31,6 +28,8 @@ struct DataItemView: View {
 
 }
 
-#Preview {
-    DataItemView()
+struct DataItemView_Previews: PreviewProvider {
+    static var previews: some View {
+        DataItemView()
+    }
 }
