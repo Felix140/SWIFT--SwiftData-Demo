@@ -7,7 +7,6 @@ struct DataItemView: View {
     @StateObject private var viewModel = DataItemViewViewModel()
     @Query private var listItem: [DataItemModel]
     
-    
     var body: some View {
         VStack {
             Text("Tap this button to print a row")
@@ -17,7 +16,15 @@ struct DataItemView: View {
             
             List {
                 ForEach(listItem) { rowList in
-                    Text(rowList.name)
+                    HStack {
+                        Text(rowList.name)
+                        Spacer()
+                        Button {
+                            viewModel.updateData(rowList)
+                        } label: {
+                            Image(systemName: "pencil")
+                        }
+                    }
                 }
                 .onDelete(perform: { indexSet in
                     for indexData in indexSet {
@@ -30,9 +37,6 @@ struct DataItemView: View {
             viewModel.contextModel = context /// inizializzo quando appare la VIEW
         }
     }
-    
-    
-    
 }
 
 struct DataItemView_Previews: PreviewProvider {

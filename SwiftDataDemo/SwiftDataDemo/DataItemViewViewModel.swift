@@ -13,4 +13,9 @@ class DataItemViewViewModel: ObservableObject {
     func deleteData(_ item: DataItemModel) {
         contextModel.delete(item)
     }
+    
+    func updateData(_ item: DataItemModel) {
+        item.name = "dato modificato"
+        try? contextModel.save()
+    }
 }
