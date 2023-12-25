@@ -17,6 +17,11 @@ struct DataItemView: View {
                 ForEach(listItem) { rowList in
                     Text(rowList.name)
                 }
+                .onDelete(perform: { indexSet in
+                    for indexData in indexSet {
+                        deleteData(listItem[indexData])
+                    }
+                })
             }
         }
     }
@@ -24,6 +29,10 @@ struct DataItemView: View {
     func pushData() {
         let itemText = DataItemModel(name: "Testo row")
         context.insert(itemText)
+    }
+    
+    func deleteData(_ item: DataItemModel) {
+        context.delete(item)
     }
 
 }
